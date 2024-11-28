@@ -50,9 +50,7 @@ const GetAllItems = catchAsync(async (req: Request, res: Response) => {
     try {
         const categories = await AnimalCategory.find();
 
-        const allItems = categories.flatMap(category => category.content);
-
-        res.status(200).json({ items: allItems });
+        res.status(200).json({ categories });
     } catch (error) {
         res.status(500).json({ error: "Failed to fetch items" });
     }
