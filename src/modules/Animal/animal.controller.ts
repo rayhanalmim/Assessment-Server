@@ -46,7 +46,20 @@ const AddItem = catchAsync(async (req: Request, res: Response) => {
     }
 });
 
-export const CategoryController = {
+const GetAllItems = catchAsync(async (req: Request, res: Response) => {
+    try {
+        const categories = await AnimalCategory.find();
+
+        const allItems = categories.flatMap(category => category.content);
+
+        res.status(200).json({ items: allItems });
+    } catch (error) {
+        res.status(500).json({ error: "Failed to fetch items" });
+    }
+});
+
+export const AnimalController = {
     AddCategory,
-    AddItem
+    AddItem,
+    GetAllItems
 };
