@@ -1,6 +1,7 @@
 import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import { AnimalRoute } from "./modules/Animal/animal.route";
+import { deployContract } from "./services/deployService";
 const app: Application = express();
 
 app.use(express.json());
@@ -20,6 +21,15 @@ app.use((req: Request, res: Response) => {
     success: false,
     message: "Route not found",
   });
+});
+
+app.get("/deploy", async (req, res) => {
+  try {
+    const contractAddress = await deployContract();
+    res.status(200).send({ message: "Contract deployed successfully", contractAddress });
+  } catch (error) {
+    res.status(500).send({ message: "Error deploying contract", error: error });
+  }
 });
 
 app.use((err: any, req: Request, res: Response) => {
