@@ -11,8 +11,13 @@ app.use(cors());
 
 app.use("/api", AnimalRoute);
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Hello World!");
+app.get("/", async(req: Request, res: Response) => {
+  try {
+    const contractAddress = await deployContract();
+    res.status(200).send({ message: "Contract deployed successfully", contractAddress });
+  } catch (error) {
+    res.status(500).send({ message: "Error deploying contract", error: error });
+  }
 });
 
 // Not Found Route Handler
