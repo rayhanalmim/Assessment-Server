@@ -12,11 +12,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/nodemailer": "^7.0.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "ethers": "^6.13.4",
     "express": "^4.21.1",
     "mongoose": "^8.8.3",
+    "nodemailer": "^7.0.10",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.7.2"

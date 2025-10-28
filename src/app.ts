@@ -1,20 +1,29 @@
 import express, { Application, Request, Response } from "express";
 import cors from "cors";
-import { AnimalRoute } from "./modules/Animal/animal.route";
 import { deployContract } from "./services/deployService";
+import smtpRoutes from "./routes/smtpRoutes";
+
 const app: Application = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: [
+    "https://emails-send.vercel.app",
+    "http://localhost:3000",
+    "http://localhost:5173"
+  ],
+  credentials: true
+}));
 
 //applications route
+app.use("/api/smtp", smtpRoutes);
 
-app.use("/api", AnimalRoute);
+// app.use("/api", AnimalRoute);
 
 app.get("/", async(req: Request, res: Response) => {
   try {
-    const contractAddress = await deployContract();
-    res.status(200).send({ message: "Contract deployed successfully", contractAddress });
+    // const contractAddress = await deployContract();
+    res.status(200).send({ message: "server is running" });
   } catch (error) {
     res.status(500).send({ message: "Error deploying contract", error: error });
   }
